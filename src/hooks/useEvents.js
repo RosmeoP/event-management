@@ -10,14 +10,14 @@ export const useEvents = () => {
     try {
       setLoading(true);
       const response = await eventAPI.getEvents();
-      // Transform API data to match our event structure
-      const transformedEvents = response.data.map(post => ({
+      // Transform API data to match our event structure - limit to 12 events
+      const transformedEvents = response.data.slice(0, 12).map(post => ({
         id: post.id,
         title: post.title,
         description: post.body,
         date: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         location: `Location ${post.id}`,
-        category: ['Conference', 'Workshop', 'Meetup', 'Webinar'][post.id % 4]
+        category: ['Conference', 'Workshop', 'Meetup'][post.id % 3]
       }));
       setEvents(transformedEvents);
       setError(null);
@@ -102,7 +102,7 @@ export const useEvent = (id) => {
           description: response.data.body,
           date: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
           location: `Location ${response.data.id}`,
-          category: ['Conference', 'Workshop', 'Meetup', 'Webinar'][response.data.id % 4]
+          category: ['Conference', 'Workshop', 'Meetup'][response.data.id % 3]
         };
         setEvent(transformedEvent);
         setError(null);

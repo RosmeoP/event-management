@@ -13,8 +13,7 @@ const EventCard = ({ event, onDelete }) => {
     const colors = {
       'Conference': 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white',
       'Workshop': 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white',
-      'Meetup': 'bg-gradient-to-r from-purple-500 to-pink-500 text-white',
-      'Webinar': 'bg-gradient-to-r from-orange-500 to-red-500 text-white'
+      'Meetup': 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
     };
     return colors[category] || 'bg-gradient-to-r from-slate-500 to-gray-500 text-white';
   };
@@ -34,11 +33,6 @@ const EventCard = ({ event, onDelete }) => {
       'Meetup': (
         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
           <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.98 1.98 0 0118 7c-.8 0-1.54.5-1.84 1.25l-1.92 5.75H12l-2.24-6.75A1.99 1.99 0 008 6c-.8 0-1.54.5-1.84 1.25L3.5 16H6v6h4v-6h4v6h4z"/>
-        </svg>
-      ),
-      'Webinar': (
-        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
         </svg>
       )
     };

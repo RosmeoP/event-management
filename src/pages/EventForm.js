@@ -224,7 +224,6 @@ const EventForm = () => {
               <option value="Conference">Conference</option>
               <option value="Workshop">Workshop</option>
               <option value="Meetup">Meetup</option>
-              <option value="Webinar">Webinar</option>
             </select>
             {errors.category && <p className="mt-1 text-sm text-red-600">{errors.category}</p>}
           </div>

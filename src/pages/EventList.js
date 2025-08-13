@@ -47,8 +47,9 @@ const EventList = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="flex flex-col justify-center items-center min-h-64 animate-fade-in-up">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mb-4"></div>
+        <p className="text-slate-600 font-medium">Loading events...</p>
       </div>
     );
   }
@@ -116,24 +117,39 @@ const EventList = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {paginatedEvents.map(event => (
-              <EventCard
+          <div key={currentPage} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {paginatedEvents.map((event, index) => (
+              <div
                 key={event.id}
-                event={event}
-                onDelete={deleteEvent}
-              />
+                className="animate-fade-in-up"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animationFillMode: 'both'
+                }}
+              >
+                <EventCard
+                  event={event}
+                  onDelete={deleteEvent}
+                />
+              </div>
             ))}
           </div>
           
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            totalItems={filteredEvents.length}
-            itemsPerPage={itemsPerPage}
-            className="mt-8"
-          />
+          <div 
+            className="animate-fade-in-up mt-8"
+            style={{
+              animationDelay: `${Math.min(paginatedEvents.length * 100, 900)}ms`,
+              animationFillMode: 'both'
+            }}
+          >
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              totalItems={filteredEvents.length}
+              itemsPerPage={itemsPerPage}
+            />
+          </div>
         </>
       )}
     </div>

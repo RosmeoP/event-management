@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEventContext } from '../context/EventContext';
+import GoBackButton from '../components/GoBackButton';
 
 const EventForm = () => {
   const { id } = useParams();
@@ -137,16 +138,21 @@ const EventForm = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+      {/* Go Back Button */}
+      <div className="mb-6 animate-fade-in-up">
+        <GoBackButton />
+      </div>
+      
+      <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent mb-2">
           {isEditing ? 'Edit Event' : 'Add New Event'}
         </h1>
-        <p className="text-gray-600">
+        <p className="text-slate-600">
           {isEditing ? 'Update the event details below' : 'Fill in the details to create a new event'}
         </p>
       </div>
 
-      <div className="bg-white shadow-lg rounded-lg p-6">
+      <div className="bg-white/70 backdrop-blur-sm border border-slate-200/60 shadow-lg rounded-2xl p-6 animate-fade-in-up" style={{ animationDelay: '200ms', animationFillMode: 'both' }}>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Title */}
           <div>

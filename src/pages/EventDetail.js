@@ -2,6 +2,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEventContext } from '../context/EventContext';
 import { useState, useEffect } from 'react';
 import ConfirmModal from '../components/ConfirmModal';
+import GoBackButton from '../components/GoBackButton';
 
 const EventDetail = () => {
   const { id } = useParams();

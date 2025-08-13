@@ -2,207 +2,204 @@
 
 A modern, responsive React.js application for managing events with full CRUD functionality, built with Tailwind CSS and React Router.
 
+---
+
 ## 🚀 Features
 
-- **Event Management**: Create, read, update, and delete events
-- **Responsive Design**: Optimized for both mobile and desktop devices
-- **Search & Filter**: Find events by title, description, or category
-- **Form Validation**: Comprehensive client-side validation for all forms
-- **Modern UI**: Clean, professional interface with Tailwind CSS
-- **API Integration**: RESTful API integration using Axios
-- **React Router**: Seamless navigation between pages
+- **Event Management:** Create, read, update, and delete events
+- **Responsive Design:** Optimized for mobile and desktop devices
+- **Search & Filter:** Find events by title, description, or category
+- **Form Validation:** Robust client-side validation for all forms
+- **Modern UI:** Professional interface with Tailwind CSS
+- **API Integration:** RESTful API via Axios
+- **React Router:** Seamless navigation between pages
+
+---
 
 ## 🛠️ Tech Stack
 
-- **React.js** (v19.1.1) - Frontend framework with functional components and hooks
-- **React Router DOM** (v7.8.0) - Client-side routing
-- **Axios** (v1.11.0) - HTTP client for API requests
-- **Tailwind CSS** (v3.4.17) - Utility-first CSS framework
-- **JavaScript ES6+** - Modern JavaScript features
+| Tech                | Version    | Purpose                         |
+|---------------------|------------|---------------------------------|
+| React.js            | 19.1.1     | Frontend framework              |
+| React Router DOM    | 7.8.0      | Routing/navigation              |
+| Axios               | 1.11.0     | API requests                    |
+| Tailwind CSS        | 3.4.17     | Utility-first CSS               |
+| JavaScript (ES6+)   | —          | Modern JavaScript features      |
+
+---
 
 ## 📋 Prerequisites
-
-Before running this application, make sure you have the following installed:
 
 - **Node.js** (v14.0.0 or higher)
 - **npm** (v6.0.0 or higher)
 
+---
+
 ## 🏃‍♂️ Quick Start
 
-### 1. Clone the Repository
+1. **Clone the Repository:**
+    ```bash
+    git clone <repository-url>
+    cd event-management
+    ```
+2. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3. **Start the development server:**
+    ```bash
+    npm start
+    ```
+    App will open at [http://localhost:3000](http://localhost:3000)
 
-```bash
-git clone <repository-url>
-cd event-management
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Start the Development Server
-
-```bash
-npm start
-```
-
-The application will open in your browser at `http://localhost:3000`
+---
 
 ## 📁 Project Structure
 
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── EventCard.js    # Event card component for list view
-│   ├── Navbar.js       # Navigation bar component
-│   └── SearchFilter.js # Search and filter component
-├── pages/              # Page components
-│   ├── EventList.js    # Events listing page
-│   ├── EventDetail.js  # Event detail view page
-│   └── EventForm.js    # Add/Edit event form page
+│   ├── EventCard.js    # Event card for list view
+│   ├── Navbar.js       # Navigation bar
+│   └── SearchFilter.js # Search/filter UI
+├── pages/              # Main app pages
+│   ├── EventList.js    # Event listing
+│   ├── EventDetail.js  # Single event view
+│   └── EventForm.js    # Add/Edit event
 ├── hooks/              # Custom React hooks
-│   └── useEvents.js    # Event management hooks
+│   └── useEvents.js    # Event management logic
 ├── services/           # API services
-│   └── api.js          # Axios configuration and API calls
-├── App.js              # Main application component
-├── index.js            # Application entry point
-└── index.css           # Global styles and Tailwind imports
+│   └── api.js          # Axios/API calls
+├── App.js              # App entry
+├── index.js            # Bootstrapping
+└── index.css           # Global styles/Tailwind
 ```
+
+---
 
 ## 🌐 API Integration
 
-The application uses JSONPlaceholder API (`https://jsonplaceholder.typicode.com`) as a mock backend:
+Using [JSONPlaceholder](https://jsonplaceholder.typicode.com) as a mock backend:
 
-- **GET /posts** - Fetch all events
-- **GET /posts/:id** - Fetch specific event
-- **POST /posts** - Create new event
-- **PUT /posts/:id** - Update existing event
-- **DELETE /posts/:id** - Delete event
+| Method | Endpoint         | Description         |
+|--------|------------------|--------------------|
+| GET    | `/posts`         | Fetch all events   |
+| GET    | `/posts/:id`     | Fetch event by ID  |
+| POST   | `/posts`         | Create new event   |
+| PUT    | `/posts/:id`     | Update event       |
+| DELETE | `/posts/:id`     | Delete event       |
 
-*Note: Since JSONPlaceholder is a mock API, actual data persistence is simulated.*
+*Note: Data persistence is simulated.*
+
+---
 
 ## 📱 Pages & Navigation
 
-### 1. Event List (`/` or `/events`)
-- Displays all events in a responsive grid layout
-- Search functionality by title or description
-- Filter by event category
-- Quick actions to edit/delete events
-- Loading states and error handling
+- **Event List (`/` or `/events`)**: Responsive grid, search/filter, quick edit/delete, loading/error states
+- **Event Detail (`/events/:id`)**: Formatted event info, edit/delete actions
+- **Add Event (`/add-event`)**: Real-time validation, required fields, no past dates
+- **Edit Event (`/events/:id/edit`)**: Pre-filled form, same validation, update API
 
-### 2. Event Detail (`/events/:id`)
-- Detailed view of a specific event
-- Event information with formatted date and location
-- Edit and delete actions
-- Responsive layout with proper spacing
-
-### 3. Add Event (`/add-event`)
-- Form to create new events
-- Real-time validation with error messages
-- Required fields: title, description, date, location, category
-- Date validation (no past dates allowed)
-
-### 4. Edit Event (`/events/:id/edit`)
-- Pre-populated form with existing event data
-- Same validation rules as add event form
-- Update functionality with API integration
+---
 
 ## ✅ Form Validation
 
-Comprehensive validation includes:
+- **Title:** Required, min 3 characters
+- **Description:** Required, min 10 characters
+- **Date:** Required, must be in the future
+- **Location:** Required
+- **Category:** Must select from options
 
-- **Title**: Required, minimum 3 characters
-- **Description**: Required, minimum 10 characters
-- **Date**: Required, cannot be in the past
-- **Location**: Required field
-- **Category**: Must select from available options
+---
 
 ## 🎨 Responsive Design
 
-The application is fully responsive with:
+- Mobile-first approach (Tailwind CSS)
+- Adaptive grid layouts
+- Touch-friendly UI
+- Optimized navigation
 
-- **Mobile-first approach** using Tailwind CSS
-- **Flexible grid layouts** that adapt to screen sizes
-- **Touch-friendly interfaces** for mobile devices
-- **Optimized navigation** for both desktop and mobile
+---
 
 ## 🔍 Search & Filter Features
 
-- **Real-time search** by event title or description
-- **Category filtering** with dropdown selection
-- **Combined filtering** (search + category filter)
-- **Results counter** showing filtered vs total events
-- **Clear visual feedback** for empty states
+- Real-time search by title/description
+- Dropdown category filter
+- Combined filtering
+- Results counter
+- Visual feedback for empty states
+
+---
 
 ## 🚀 Available Scripts
 
-- `npm start` - Runs the app in development mode
-- `npm build` - Builds the app for production
-- `npm test` - Launches the test runner
-- `npm eject` - Ejects from Create React App (one-way operation)
+- `npm start` — Development server
+- `npm build` — Production build
+- `npm test` — Test runner
+- `npm eject` — Eject from Create React App
 
-## 🎯 Key Features Implemented
+---
 
-### ✅ Technical Requirements Met
+## 🎯 Features Implemented
 
-- [x] React.js with functional components and hooks
-- [x] React Router for navigation (List, Add/Edit, Detail)
-- [x] Tailwind CSS for styling
-- [x] Axios for API integration
-- [x] Responsive layout for mobile and desktop
-- [x] Form validation for adding/editing events
-- [x] Filter and search functionality (Bonus feature)
+- [x] React.js functional components/hooks
+- [x] React Router navigation
+- [x] Tailwind CSS styling
+- [x] Axios API integration
+- [x] Responsive layout
+- [x] Form validation
+- [x] Filter/search (bonus)
+- Loading spinners, error handling, confirmation dialogs, breadcrumbs, category badges, consistent UI/UX
 
-### 🏆 Additional Features
-
-- **Loading states** with spinners
-- **Error handling** with user-friendly messages
-- **Confirmation dialogs** for destructive actions
-- **Breadcrumb navigation** for better UX
-- **Category badges** with color coding
-- **Professional UI/UX** with consistent design
+---
 
 ## 🔧 Development Notes
 
-### Custom Hooks
-- `useEvents()` - Manages event list state and CRUD operations
-- `useEvent(id)` - Fetches and manages individual event data
+- **Custom Hooks:**  
+  `useEvents()` (list state, CRUD ops), `useEvent(id)` (single event logic)
+- **State Management:**  
+  Local state with React hooks (no Redux)
+- **Error Handling:**  
+  API & form errors, loading states
 
-### State Management
-- Local state management using React hooks
-- No external state management library needed for this scope
-
-### Error Handling
-- API error handling with user feedback
-- Form validation with real-time error display
-- Loading states for better user experience
+---
 
 ## 🌟 Future Enhancements
 
-Potential improvements for future versions:
-
-- **Authentication & Authorization**
-- **Event categories management**
-- **Event images upload**
-- **Calendar view**
-- **Event sharing functionality**
-- **Email notifications**
-- **Advanced filtering options**
-- **Pagination for large datasets**
+- Authentication & Authorization
+- Category management
+- Event image uploads
+- Calendar view
+- Event sharing
+- Email notifications
+- Advanced filtering
+- Pagination
 
 ---
 
 ## 🎉 Getting Started
 
-1. **Install dependencies**: `npm install`
-2. **Start development server**: `npm start`
-3. **Open browser**: Navigate to `http://localhost:3000`
-4. **Explore the app**: Create, view, edit, and delete events!
+1. Install dependencies: `npm install`
+2. Start dev server: `npm start`
+3. Open browser: [http://localhost:3000](http://localhost:3000)
+4. Explore: Create, view, edit, delete events
 
-The application will automatically reload when you make changes to the code.
+App auto-reloads on code changes.
 
 ---
 
-*Built with ❤️ using React.js, Tailwind CSS, and modern web development practices.*
+*Built with ❤️ using React.js, Tailwind CSS, and modern web development best practices.*
+<img width="1470" height="956" alt="Screenshot 2025-08-13 at 4 58 32 PM" src="https://github.com/user-attachments/assets/aed61a72-fa72-49e6-aca1-6b8111a91c6f" />
+<img width="1470" height="956" alt="Screenshot 2025-08-13 at 5 03 10 PM" src="https://github.com/user-attachments/assets/1d0ea709-b72b-4092-bccc-d05b14f02a04" />
+<img width="1470" height="956" alt="Screenshot 2025-08-13 at 5 03 28 PM" src="https://github.com/user-attachments/assets/318d0504-6141-4877-b6c1-96afb256b5f3" />
+
+
+
+
+<!--
+Badges and screenshots can be added here:
+
+![App Screenshot](assets/screenshot.png)
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+-->
+<img width="1470" height="956" alt="Screenshot 2025-08-13 at 5 04 05 PM" src="https://github.com/user-attachments/assets/e0fdcd14-0634-4fea-9fe8-72cad4202059" />

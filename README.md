@@ -16,6 +16,16 @@ A modern, responsive React.js application for managing events with full CRUD fun
 
 ---
 
+## 🌍 Deployment
+
+[![Vercel](https://vercelbadge.vercel.app/api/event-management-umber-psi)](https://event-management-umber-psi.vercel.app/)
+
+The app is live and deployed via [Vercel](https://vercel.com/) at:
+
+👉 [https://event-management-umber-psi.vercel.app/](https://event-management-umber-psi.vercel.app/)
+
+---
+
 ## 🛠️ Tech Stack
 
 | Tech                | Version    | Purpose                         |

@@ -85,8 +85,8 @@ const EventList = () => {
       </div>
 
       <SearchFilter
-        onSearch={setSearchTerm}
-        onFilter={setFilterCategory}
+        onSearch={handleSearch}
+        onFilter={handleFilter}
       />
 
       {filteredEvents.length === 0 ? (
@@ -117,7 +117,7 @@ const EventList = () => {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredEvents.map(event => (
+            {paginatedEvents.map(event => (
               <EventCard
                 key={event.id}
                 event={event}
@@ -126,13 +126,14 @@ const EventList = () => {
             ))}
           </div>
           
-          <div className="flex items-center justify-center pt-4">
-            <div className="bg-white/70 backdrop-blur-sm border border-slate-200/60 rounded-xl px-4 py-2">
-              <span className="text-sm font-medium text-slate-600">
-                Showing {filteredEvents.length} of {events.length} events
-              </span>
-            </div>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            totalItems={filteredEvents.length}
+            itemsPerPage={itemsPerPage}
+            className="mt-8"
+          />
         </>
       )}
     </div>

@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEvents, useEvent } from '../hooks/useEvents';
+import { useEventContext } from '../context/EventContext';
 
 const EventForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditing = Boolean(id);
   
-  const { addEvent, updateEvent } = useEvents();
-  const { event: existingEvent, loading: eventLoading } = useEvent(id);
+  const { addEvent, updateEvent, getEvent } = useEventContext();
+  
+  const [existingEvent, setExistingEvent] = useState(null);
+  const [eventLoading, setEventLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -22,16 +24,31 @@ const EventForm = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isEditing && existingEvent) {
-      setFormData({
-        title: existingEvent.title || '',
-        description: existingEvent.description || '',
-        date: existingEvent.date || '',
-        location: existingEvent.location || '',
-        category: existingEvent.category || 'Conference'
-      });
-    }
-  }, [isEditing, existingEvent]);
+    const loadEvent = async () => {
+      if (isEditing && id) {
+        setEventLoading(true);
+        try {
+          const { event } = await getEvent(id);
+          setExistingEvent(event);
+          if (event) {
+            setFormData({
+              title: event.title || '',
+              description: event.description || '',
+              date: event.date || '',
+              location: event.location || '',
+              category: event.category || 'Conference'
+            });
+          }
+        } catch (error) {
+          console.error('Error loading event:', error);
+        } finally {
+          setEventLoading(false);
+        }
+      }
+    };
+
+    loadEvent();
+  }, [isEditing, id, getEvent]);
 
   const validateForm = () => {
     const newErrors = {};

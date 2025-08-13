@@ -1,7 +1,17 @@
-import { useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { eventAPI } from '../services/api';
 
-export const useEvents = () => {
+const EventContext = createContext();
+
+export const useEventContext = () => {
+  const context = useContext(EventContext);
+  if (!context) {
+    throw new Error('useEventContext must be used within an EventProvider');
+  }
+  return context;
+};
+
+export const EventProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,7 +46,7 @@ export const useEvents = () => {
   const deleteEvent = async (id) => {
     try {
       await eventAPI.deleteEvent(id);
-      setEvents(events.filter(event => event.id !== id));
+      setEvents(prevEvents => prevEvents.filter(event => event.id !== parseInt(id)));
     } catch (err) {
       setError('Failed to delete event');
       console.error('Error deleting event:', err);
@@ -50,7 +60,7 @@ export const useEvents = () => {
         ...newEvent,
         id: response.data.id || Date.now() + Math.random() * 1000
       };
-      setEvents([event, ...events]);
+      setEvents(prevEvents => [event, ...prevEvents]);
       return event;
     } catch (err) {
       setError('Failed to create event');
@@ -61,10 +71,18 @@ export const useEvents = () => {
 
   const updateEvent = async (id, updatedEvent) => {
     try {
+      console.log('Updating event with id:', id, 'data:', updatedEvent);
       await eventAPI.updateEvent(id, updatedEvent);
-      setEvents(events.map(event => 
-        event.id === parseInt(id) ? { ...updatedEvent, id: parseInt(id) } : event
-      ));
+      
+      setEvents(prevEvents => {
+        console.log('Previous events:', prevEvents);
+        const updatedEvents = prevEvents.map(event => 
+          event.id === parseInt(id) ? { ...updatedEvent, id: parseInt(id) } : event
+        );
+        console.log('Updated events:', updatedEvents);
+        return updatedEvents;
+      });
+      
       return updatedEvent;
     } catch (err) {
       setError('Failed to update event');
@@ -73,29 +91,16 @@ export const useEvents = () => {
     }
   };
 
-  return {
-    events,
-    loading,
-    error,
-    deleteEvent,
-    addEvent,
-    updateEvent,
-    refetch: fetchEvents
-  };
-};
+  const getEvent = (id) => {
+    // First try to find it in local state
+    const localEvent = events.find(event => event.id === parseInt(id));
+    if (localEvent) {
+      return Promise.resolve({ event: localEvent, loading: false, error: null });
+    }
 
-export const useEvent = (id) => {
-  const [event, setEvent] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      if (!id) return;
-      
-      try {
-        setLoading(true);
-        const response = await eventAPI.getEvent(id);
+    // If not found locally, fetch from API
+    return eventAPI.getEvent(id)
+      .then(response => {
         const transformedEvent = {
           id: response.data.id,
           title: response.data.title,
@@ -104,18 +109,27 @@ export const useEvent = (id) => {
           location: `Location ${response.data.id}`,
           category: ['Conference', 'Workshop', 'Meetup'][response.data.id % 3]
         };
-        setEvent(transformedEvent);
-        setError(null);
-      } catch (err) {
-        setError('Failed to fetch event');
-        console.error('Error fetching event:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+        return { event: transformedEvent, loading: false, error: null };
+      })
+      .catch(err => {
+        return { event: null, loading: false, error: 'Failed to fetch event' };
+      });
+  };
 
-    fetchEvent();
-  }, [id]);
+  const value = {
+    events,
+    loading,
+    error,
+    deleteEvent,
+    addEvent,
+    updateEvent,
+    getEvent,
+    refetch: fetchEvents
+  };
 
-  return { event, loading, error };
+  return (
+    <EventContext.Provider value={value}>
+      {children}
+    </EventContext.Provider>
+  );
 };

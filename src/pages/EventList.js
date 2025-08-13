@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useEvents } from '../hooks/useEvents';
+import { useEventContext } from '../context/EventContext';
 import EventCard from '../components/EventCard';
 import SearchFilter from '../components/SearchFilter';
 
 const EventList = () => {
-  const { events, loading, error, deleteEvent } = useEvents();
+  const { events, loading, error, deleteEvent } = useEventContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
 

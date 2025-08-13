@@ -1,19 +1,44 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useEvent } from '../hooks/useEvents';
-import { useState } from 'react';
-import { eventAPI } from '../services/api';
+import { useEventContext } from '../context/EventContext';
+import { useState, useEffect } from 'react';
 
 const EventDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { event, loading, error } = useEvent(id);
+  const { getEvent, deleteEvent } = useEventContext();
+  
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+
+  useEffect(() => {
+    const loadEvent = async () => {
+      if (id) {
+        setLoading(true);
+        try {
+          const { event: fetchedEvent, error: fetchError } = await getEvent(id);
+          if (fetchError) {
+            setError(fetchError);
+          } else {
+            setEvent(fetchedEvent);
+          }
+        } catch (err) {
+          setError('Failed to fetch event');
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadEvent();
+  }, [id, getEvent]);
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       try {
         setDeleteLoading(true);
-        await eventAPI.deleteEvent(id);
+        await deleteEvent(id);
         navigate('/events');
       } catch (error) {
         console.error('Error deleting event:', error);

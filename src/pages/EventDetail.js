@@ -61,16 +61,20 @@ const EventDetail = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="flex flex-col justify-center items-center min-h-64 animate-fade-in-up">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mb-4"></div>
+        <p className="text-slate-600 font-medium">Loading event details...</p>
       </div>
     );
   }
 
   if (error || !event) {
     return (
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-red-50 border border-red-200 rounded-md p-4">
+      <div className="max-w-4xl mx-auto animate-fade-in-up">
+        <div className="mb-6">
+          <GoBackButton />
+        </div>
+        <div className="bg-red-50/70 backdrop-blur-sm border border-red-200 rounded-2xl p-6">
           <div className="flex">
             <div className="flex-shrink-0">
               <svg className="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,12 +87,10 @@ const EventDetail = () => {
                 <p>{error || 'Event not found'}</p>
               </div>
               <div className="mt-4">
-                <Link
-                  to="/events"
-                  className="text-red-800 underline hover:text-red-900"
-                >
-                  Back to Events
-                </Link>
+                <GoBackButton 
+                  variant="minimal" 
+                  className="text-red-800 hover:text-red-900"
+                />
               </div>
             </div>
           </div>
@@ -99,21 +101,13 @@ const EventDetail = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      {/* Breadcrumb */}
-      <nav className="mb-6">
-        <Link
-          to="/events"
-          className="text-blue-600 hover:text-blue-800 flex items-center text-sm"
-        >
-          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Events
-        </Link>
-      </nav>
+      {/* Go Back Button */}
+      <div className="mb-6 animate-fade-in-up">
+        <GoBackButton />
+      </div>
 
       {/* Event Header */}
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="bg-white/70 backdrop-blur-sm border border-slate-200/60 rounded-2xl shadow-lg overflow-hidden animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
         <div className="px-6 py-8 sm:px-8">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
             <div className="flex-1">

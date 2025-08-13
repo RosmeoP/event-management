@@ -130,8 +130,14 @@ const EventForm = () => {
 
   if (isEditing && eventLoading) {
     return (
-      <div className="flex justify-center items-center min-h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="max-w-2xl mx-auto">
+        <div className="mb-6 animate-fade-in-up">
+          <GoBackButton />
+        </div>
+        <div className="flex flex-col justify-center items-center min-h-64 animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mb-4"></div>
+          <p className="text-slate-600 font-medium">Loading event for editing...</p>
+        </div>
       </div>
     );
   }

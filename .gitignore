@@ -21,3 +21,31 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+Thumbs.db
+*.tmp
+*.temp
+
+# Cache directories
+.cache/
+.parcel-cache/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Tailwind CSS build outputs (if using custom build process)
+/src/tailwind-output.css

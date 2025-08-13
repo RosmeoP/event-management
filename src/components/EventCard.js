@@ -16,13 +16,8 @@ const EventCard = ({ event, onDelete }) => {
     setShowDeleteModal(false);
   };
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      'Conference': 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white',
-      'Workshop': 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white',
-      'Meetup': 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-    };
-    return colors[category] || 'bg-gradient-to-r from-slate-500 to-gray-500 text-white';
+  const getCategoryColor = () => {
+    return 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white';
   };
 
   const getCategoryIcon = (category) => {
@@ -49,11 +44,11 @@ const EventCard = ({ event, onDelete }) => {
   return (
     <div className="group bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200/60 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-500 overflow-hidden">
       {/* Top gradient bar */}
-      <div className={`h-1 ${getCategoryColor(event.category).split(' ')[0]} ${getCategoryColor(event.category).split(' ')[1]} ${getCategoryColor(event.category).split(' ')[2]}`}></div>
+      <div className="h-1 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
       
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
-          <div className={`inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl text-xs font-bold ${getCategoryColor(event.category)} shadow-sm`}>
+          <div className={`inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl text-xs font-bold ${getCategoryColor()} shadow-sm`}>
             {getCategoryIcon(event.category)}
             <span>{event.category}</span>
           </div>

@@ -22,8 +22,8 @@ export const EventProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await eventAPI.getEvents();
-      // Transform API data to match our event structure - limit to 12 events
-      const transformedEvents = response.data.slice(0, 12).map(post => ({
+      // Transform API data to match our event structure - get all 100 events
+      const transformedEvents = response.data.map(post => ({
         id: post.id,
         title: post.title,
         description: post.body,

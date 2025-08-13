@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 import { useEventContext } from '../context/EventContext';
 import EventCard from '../components/EventCard';
 import SearchFilter from '../components/SearchFilter';
+import Pagination from '../components/Pagination';
 
 const EventList = () => {
   const { events, loading, error, deleteEvent } = useEventContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9; // 3x3 grid
 
+  // First filter the events
   const filteredEvents = useMemo(() => {
     return events.filter(event => {
       const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -18,6 +22,28 @@ const EventList = () => {
       return matchesSearch && matchesCategory;
     });
   }, [events, searchTerm, filterCategory]);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedEvents = filteredEvents.slice(startIndex, startIndex + itemsPerPage);
+
+  // Reset to page 1 when filters change
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    setCurrentPage(1);
+  };
+
+  const handleFilter = (category) => {
+    setFilterCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // Scroll to top when page changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (loading) {
     return (

@@ -54,14 +54,8 @@ const EventDetail = () => {
     }
   };
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      'Conference': 'bg-blue-100 text-blue-800 border-blue-200',
-      'Workshop': 'bg-green-100 text-green-800 border-green-200',
-      'Meetup': 'bg-purple-100 text-purple-800 border-purple-200',
-      'Webinar': 'bg-orange-100 text-orange-800 border-orange-200'
-    };
-    return colors[category] || 'bg-gray-100 text-gray-800 border-gray-200';
+  const getCategoryColor = () => {
+    return 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-indigo-200';
   };
 
   if (loading) {
@@ -123,7 +117,7 @@ const EventDetail = () => {
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
             <div className="flex-1">
               <div className="flex items-center mb-4">
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${getCategoryColor(event.category)}`}>
+                <span className={`px-3 py-1 rounded-xl text-sm font-semibold border ${getCategoryColor()}`}>
                   {event.category}
                 </span>
               </div>

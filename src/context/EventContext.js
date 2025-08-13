@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { eventAPI } from '../services/api';
+import { useToast } from './ToastContext';
 
 const EventContext = createContext();
 
@@ -15,6 +16,7 @@ export const EventProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const toast = useToast();
 
   const fetchEvents = async () => {
     try {
@@ -47,9 +49,12 @@ export const EventProvider = ({ children }) => {
     try {
       await eventAPI.deleteEvent(id);
       setEvents(prevEvents => prevEvents.filter(event => event.id !== parseInt(id)));
+      toast.success('Event deleted successfully');
     } catch (err) {
       setError('Failed to delete event');
+      toast.error('Failed to delete event. Please try again.');
       console.error('Error deleting event:', err);
+      throw err;
     }
   };
 
@@ -61,9 +66,11 @@ export const EventProvider = ({ children }) => {
         id: response.data.id || Date.now() + Math.random() * 1000
       };
       setEvents(prevEvents => [event, ...prevEvents]);
+      toast.success('Event created successfully');
       return event;
     } catch (err) {
       setError('Failed to create event');
+      toast.error('Failed to create event. Please try again.');
       console.error('Error creating event:', err);
       throw err;
     }
@@ -71,21 +78,19 @@ export const EventProvider = ({ children }) => {
 
   const updateEvent = async (id, updatedEvent) => {
     try {
-      console.log('Updating event with id:', id, 'data:', updatedEvent);
       await eventAPI.updateEvent(id, updatedEvent);
       
-      setEvents(prevEvents => {
-        console.log('Previous events:', prevEvents);
-        const updatedEvents = prevEvents.map(event => 
+      setEvents(prevEvents => 
+        prevEvents.map(event => 
           event.id === parseInt(id) ? { ...updatedEvent, id: parseInt(id) } : event
-        );
-        console.log('Updated events:', updatedEvents);
-        return updatedEvents;
-      });
+        )
+      );
       
+      toast.success('Event updated successfully');
       return updatedEvent;
     } catch (err) {
       setError('Failed to update event');
+      toast.error('Failed to update event. Please try again.');
       console.error('Error updating event:', err);
       throw err;
     }

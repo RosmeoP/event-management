@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEventContext } from '../context/EventContext';
 import { useState, useEffect } from 'react';
+import ConfirmModal from '../components/ConfirmModal';
 
 const EventDetail = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ const EventDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     const loadEvent = async () => {
@@ -34,18 +36,21 @@ const EventDetail = () => {
     loadEvent();
   }, [id, getEvent]);
 
-  const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this event?')) {
-      try {
-        setDeleteLoading(true);
-        await deleteEvent(id);
-        navigate('/events');
-      } catch (error) {
-        console.error('Error deleting event:', error);
-        alert('Failed to delete event. Please try again.');
-      } finally {
-        setDeleteLoading(false);
-      }
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      setDeleteLoading(true);
+      await deleteEvent(id);
+      setShowDeleteModal(false);
+      navigate('/events');
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      setShowDeleteModal(false);
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -141,7 +146,7 @@ const EventDetail = () => {
               </Link>
               
               <button
-                onClick={handleDelete}
+                onClick={handleDeleteClick}
                 disabled={deleteLoading}
                 className="inline-flex items-center px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
@@ -215,6 +220,17 @@ const EventDetail = () => {
           </div>
         </div>
       </div>
+      
+      <ConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleConfirmDelete}
+        title="Delete Event"
+        message={`Are you sure you want to delete "${event?.title}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        type="danger"
+      />
     </div>
   );
 };

@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import ConfirmModal from './ConfirmModal';
 
 const EventCard = ({ event, onDelete }) => {
-  const handleDelete = (e) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDeleteClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (window.confirm('Are you sure you want to delete this event?')) {
-      onDelete(event.id);
-    }
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    onDelete(event.id);
+    setShowDeleteModal(false);
   };
 
   const getCategoryColor = (category) => {
@@ -62,7 +69,7 @@ const EventCard = ({ event, onDelete }) => {
               </svg>
             </Link>
             <button
-              onClick={handleDelete}
+              onClick={handleDeleteClick}
               className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,6 +120,17 @@ const EventCard = ({ event, onDelete }) => {
           </div>
         </Link>
       </div>
+      
+      <ConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleConfirmDelete}
+        title="Delete Event"
+        message={`Are you sure you want to delete "${event.title}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        type="danger"
+      />
     </div>
   );
 };

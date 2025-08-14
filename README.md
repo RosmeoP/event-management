@@ -9,8 +9,9 @@ A modern, responsive React.js application for managing events with full CRUD fun
 - **Event Management:** Create, read, update, and delete events
 - **Responsive Design:** Optimized for mobile and desktop devices
 - **Search & Filter:** Find events by title, description, or category
+- **Pagination:** Navigate through 100+ events with smooth animations
 - **Form Validation:** Robust client-side validation for all forms
-- **Modern UI:** Professional interface with Tailwind CSS
+- **Modern UI:** Professional interface with glass-morphism effects
 - **API Integration:** RESTful API via Axios
 - **React Router:** Seamless navigation between pages
 
@@ -159,7 +160,10 @@ Using [JSONPlaceholder](https://jsonplaceholder.typicode.com) as a mock backend:
 - [x] Responsive layout
 - [x] Form validation
 - [x] Filter/search (bonus)
-- Loading spinners, error handling, confirmation dialogs, breadcrumbs, category badges, consistent UI/UX
+- [x] Pagination with smooth animations
+- [x] Toast notifications and confirmation modals
+- [x] Loading spinners, error handling, go-back navigation
+- [x] Glass-morphism UI effects and consistent design
 
 ---
 
@@ -182,8 +186,8 @@ Using [JSONPlaceholder](https://jsonplaceholder.typicode.com) as a mock backend:
 - Calendar view
 - Event sharing
 - Email notifications
-- Advanced filtering
-- Pagination
+- Advanced filtering options
+- Export functionality
 
 ---
 

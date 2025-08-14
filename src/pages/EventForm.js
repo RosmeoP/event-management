@@ -150,7 +150,7 @@ const EventForm = () => {
       </div>
       
       <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent mb-2">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">
           {isEditing ? 'Edit Event' : 'Add New Event'}
         </h1>
         <p className="text-slate-600">

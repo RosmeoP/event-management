@@ -17,7 +17,7 @@ const EventCard = ({ event, onDelete }) => {
   };
 
   const getCategoryColor = () => {
-    return 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white';
+    return 'bg-indigo-600 text-white';
   };
 
   const getCategoryIcon = (category) => {
@@ -44,7 +44,7 @@ const EventCard = ({ event, onDelete }) => {
   return (
     <div className="group bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200/60 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-500 overflow-hidden">
       {/* Top gradient bar */}
-      <div className="h-1 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
+      <div className="h-1 bg-indigo-600"></div>
       
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">

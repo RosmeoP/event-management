@@ -97,7 +97,7 @@ const Pagination = ({
                 onClick={() => onPageChange(page)}
                 className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                   isCurrentPage
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25'
+                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
                     : 'text-slate-600 bg-white/70 backdrop-blur-sm border border-slate-200 hover:bg-slate-50 hover:text-slate-900'
                 }`}
               >

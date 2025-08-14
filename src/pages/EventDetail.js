@@ -56,7 +56,7 @@ const EventDetail = () => {
   };
 
   const getCategoryColor = () => {
-    return 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-indigo-200';
+    return 'bg-indigo-600 text-white border-indigo-200';
   };
 
   if (loading) {
